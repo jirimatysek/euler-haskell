@@ -1,12 +1,30 @@
 module Euler.ProjectEuler 
+    where 
+
+-- Core
+fibSeq :: [Integer]
+fibSeq = 1 : 1 : zipWith (+) fibSeq (tail fibSeq)
+
+primeSeq :: [Integer]
+primeSeq = primeSieve [2..]
     where
+        primeSieve (x:xs) = x : [ y | y <- xs, y `mod` x /= 0] 
+
+primeFactors :: Integer -> [Integer]
+primeFactors n = primeFactorsInner n primeSeq
+    where 
+        primeFactorsInner x xs
+            | x == (head xs)            = [x]
+            | x `mod` (head xs) == 0    = (head xs) : primeFactorsInner (x `div` (head xs)) xs
+            | otherwise                 = primeFactorsInner x (tail xs)
+
 
 -- Problem 1
 -- Multiples of 3 and 5
 problem001 :: Integer -> Integer
-problem001 n = sumOfN 3 + sumOfN 5 - sumOfN 15
+problem001 n = sumOfMultipleOf 3 + sumOfMultipleOf 5 - sumOfMultipleOf 15
     where 
-        sumOfN x = 
+        sumOfMultipleOf x = 
             let a = ((n - 1) `div` x)
             in x * ((a * (a + 1)) `div` 2)
 
@@ -15,5 +33,8 @@ problem001 n = sumOfN 3 + sumOfN 5 - sumOfN 15
 problem002 :: Integer -> Integer
 problem002 n = sum $ takeWhile (<n) $ filter even fibSeq
 
-fibSeq :: [Integer]
-fibSeq = 1 : 1 : zipWith (+) fibSeq (tail fibSeq)
+-- Problem 3
+-- Largest prime factor
+problem003 :: Integer -> Integer
+problem003 n = maximum $ primeFactors n
+
