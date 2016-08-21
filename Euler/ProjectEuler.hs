@@ -25,6 +25,9 @@ isPalindrome n = n == reverseNumber n 0
             | n == 0    = acc
             | otherwise = reverseNumber (n `div` 10) (10 * acc + n `mod` 10) 
 
+sumOfN :: Integer -> Integer
+sumOfN n = (n * (n + 1)) `div` 2
+
 -- Problem 1
 -- Multiples of 3 and 5
 problem001 :: Integer -> Integer
@@ -32,7 +35,7 @@ problem001 n = sumOfMultipleOf 3 + sumOfMultipleOf 5 - sumOfMultipleOf 15
     where 
         sumOfMultipleOf x = 
             let a = ((n - 1) `div` x)
-            in x * ((a * (a + 1)) `div` 2)
+            in x * sumOfN a
 
 -- Problem 2
 -- Even Fibonacci numbers
@@ -49,7 +52,9 @@ problem003 n = maximum $ primeFactors n
 problem004 :: [Integer] -> Integer
 problem004 xs = maximum $ filter isPalindrome [ x * y | x <- xs, y <- xs]
 
-
-
+-- Problem 5
+-- Smallest multiple
+problem005 :: [Integer] -> Integer
+problem005 (x:xs) = x
 
 
