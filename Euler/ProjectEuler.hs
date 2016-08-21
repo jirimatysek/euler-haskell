@@ -18,6 +18,12 @@ primeFactors n = primeFactorsInner n primeSeq
             | x `mod` (head xs) == 0    = (head xs) : primeFactorsInner (x `div` (head xs)) xs
             | otherwise                 = primeFactorsInner x (tail xs)
 
+isPalindrome :: Integer -> Bool
+isPalindrome n = n == reverseNumber n 0
+    where
+        reverseNumber n acc 
+            | n == 0    = acc
+            | otherwise = reverseNumber (n `div` 10) (10 * acc + n `mod` 10) 
 
 -- Problem 1
 -- Multiples of 3 and 5
@@ -37,4 +43,13 @@ problem002 n = sum $ takeWhile (<n) $ filter even fibSeq
 -- Largest prime factor
 problem003 :: Integer -> Integer
 problem003 n = maximum $ primeFactors n
+
+-- Problem 4
+-- Largest palindrome product
+problem004 :: [Integer] -> Integer
+problem004 xs = maximum $ filter isPalindrome [ x * y | x <- xs, y <- xs]
+
+
+
+
 
