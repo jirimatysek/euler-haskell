@@ -8,7 +8,7 @@ fibSeq = 1 : 1 : zipWith (+) fibSeq (tail fibSeq)
 primeSeq :: [Integer]
 primeSeq = primeSieve [2..]
     where
-        primeSieve (x:xs) = x : [ y | y <- xs, y `mod` x /= 0] 
+        primeSieve (x:xs) = x : primeSieve [ y | y <- xs, y `mod` x /= 0] 
 
 primeFactors :: Integer -> [Integer]
 primeFactors n = primeFactorsInner n primeSeq
@@ -52,9 +52,7 @@ problem003 n = maximum $ primeFactors n
 problem004 :: [Integer] -> Integer
 problem004 xs = maximum $ filter isPalindrome [ x * y | x <- xs, y <- xs]
 
--- Problem 5
--- Smallest multiple
-problem005 :: [Integer] -> Integer
-problem005 (x:xs) = x
-
-
+-- Problem 7
+-- 10001st prime
+problem007 :: Int -> Integer
+problem007 n = primeSeq !! (n - 1)
