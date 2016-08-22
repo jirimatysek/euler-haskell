@@ -52,6 +52,20 @@ problem003 n = maximum $ primeFactors n
 problem004 :: [Integer] -> Integer
 problem004 xs = maximum $ filter isPalindrome [ x * y | x <- xs, y <- xs]
 
+-- Problem 5
+-- Smallest multiple
+problem005 :: [Integer] -> Integer
+problem005 [] = 1
+problem005 (x:xs)   
+    | null xs   = x
+    | otherwise = x * (problem005 $ filter (/=1) $ map (`divBy` (primeFactors x)) xs)
+        where 
+            divBy 1 _   = 1
+            divBy y []  = y 
+            divBy y (z:zx)
+                | y `mod` z == 0 = divBy (y `div` z) zx
+                | otherwise      = divBy y zx
+
 -- Problem 7
 -- 10001st prime
 problem007 :: Int -> Integer
