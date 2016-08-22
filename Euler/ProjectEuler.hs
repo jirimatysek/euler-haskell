@@ -66,6 +66,11 @@ problem005 (x:xs)
                 | y `mod` z == 0 = divBy (y `div` z) zx
                 | otherwise      = divBy y zx
 
+-- Problem 6
+-- Sum square difference
+problem006 :: Integer -> Integer
+problem006 n = ((^2) $ sumOfN n) - (sum $ map (^2) [1..n])
+
 -- Problem 7
 -- 10001st prime
 problem007 :: Int -> Integer
