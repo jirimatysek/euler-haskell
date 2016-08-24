@@ -75,3 +75,8 @@ problem006 n = ((^2) $ sumOfN n) - (sum $ map (^2) [1..n])
 -- 10001st prime
 problem007 :: Int -> Integer
 problem007 n = primeSeq !! (n - 1)
+
+-- Problem 15
+-- Lattice paths
+problem015 :: Integer -> Integer
+problem015 n = div (product [(n+1)..(2*n)]) (product [1..n])
